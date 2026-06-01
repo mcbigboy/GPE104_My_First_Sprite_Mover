@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpaceShipPawn : Pawn
@@ -25,6 +26,8 @@ public class SpaceShipPawn : Pawn
         {
             speed = moveSpeed;
         }
+        
+
     }
 
     public override void MoveForward()
@@ -101,6 +104,26 @@ public class SpaceShipPawn : Pawn
         if (mover != null)
         {
             mover.Teleport(minX, maxX, minY, maxY);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D otherObject)
+    {
+        Debug.Log("The GameObject of the other object is named: " + otherObject.gameObject.name);
+
+       Health health = GetComponent<Health>();
+
+        if(health != null) { 
+            
+            if (health.instantDeath)
+            {
+                health.die();
+                return;
+                
+                
+            }
+
+            health.TakeDamage(10); // Example damage value
         }
     }
 }
