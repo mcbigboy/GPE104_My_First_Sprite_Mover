@@ -25,6 +25,9 @@ public class PlayerController : Controller
     // Quit key
     public KeyCode quitKey;
 
+    // Fire bullet key
+    public KeyCode fire;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -107,6 +110,16 @@ public class PlayerController : Controller
         {
             Debug.Log("Quitting game...");
             Application.Quit();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            pawn.Fire();
+        }
+
+        if(Input.GetMouseButton(0))
+        {
+
         }
     }
 }

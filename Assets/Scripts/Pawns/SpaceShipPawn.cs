@@ -8,6 +8,12 @@ public class SpaceShipPawn : Pawn
     
     private float speed = 0.0f;
 
+    // fire point
+    public GameObject bulletToFire;
+    public Transform firePoint;
+    public float timeBetweenShots = 0.2f;
+    private float shotCounter;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -111,19 +117,39 @@ public class SpaceShipPawn : Pawn
     {
         Debug.Log("The GameObject of the other object is named: " + otherObject.gameObject.name);
 
-       Health health = GetComponent<Health>();
+        if (otherObject.gameObject.name != "bullet_0") 
+        { 
+            Debug.Log("not working");
+            Health health = GetComponent<Health>();
 
-        if(health != null) { 
-            
-            if (health.instantDeath)
-            {
-                health.die();
-                return;
-                
-                
+            if (health != null) {
+
+                if (health.instantDeath)
+                {
+                    health.die();
+                    return;
+
+
+                }
+
+                health.TakeDamage(10); // Example damage value
             }
+        }
+    }
 
-            health.TakeDamage(10); // Example damage value
+    public override void Fire()
+    {
+        Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
+        shotCounter = timeBetweenShots;
+    }
+
+    public override void FireMore()
+    {
+        shotCounter -= Time.deltaTime;
+        if (shotCounter <= 0)
+        {
+            Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
+            shotCounter = timeBetweenShots;
         }
     }
 }

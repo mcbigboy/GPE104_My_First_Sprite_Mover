@@ -34,6 +34,10 @@ public abstract class Pawn : MonoBehaviour
 
     public  abstract void MoveRight();
 
-    public abstract void Teleport();    
+    public abstract void Teleport();
+
+    public abstract void Fire();
+
+    public abstract void FireMore();
 
 }
