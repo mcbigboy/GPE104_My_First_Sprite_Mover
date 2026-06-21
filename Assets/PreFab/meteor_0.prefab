@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65da1af41996e1a4287e273b7b83ade0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathMeteor
+  points: 20
 --- !u!114 &2674270526780937904
 MonoBehaviour:
   m_ObjectHideFlags: 0
