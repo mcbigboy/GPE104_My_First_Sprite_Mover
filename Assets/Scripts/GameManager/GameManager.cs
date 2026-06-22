@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     public GameObject GamePlayStateObject;
     public GameObject GameOverStateObject;
 
+    //sound effects
+    public AudioSource backgroundMusic;
+    public AudioClip fireSound, bang;
 
     public void Awake()
     {

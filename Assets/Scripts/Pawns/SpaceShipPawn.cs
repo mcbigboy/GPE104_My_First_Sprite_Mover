@@ -7,6 +7,7 @@ public class SpaceShipPawn : Pawn
     public SpaceShipMover mover;
     
     private float speed = 0.0f;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
     // fire point
     public GameObject bulletToFire;
@@ -14,6 +15,8 @@ public class SpaceShipPawn : Pawn
     public float timeBetweenShots = 0.2f;
     private float shotCounter;
 
+
+  
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -141,6 +144,8 @@ public class SpaceShipPawn : Pawn
     {
         Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
         shotCounter = timeBetweenShots;
+       //sfxSource.PlayOneShot(GameManager.instance.fireSound);
+        GameManager.instance.backgroundMusic.PlayOneShot(GameManager.instance.fireSound);
     }
 
     public override void FireMore()
@@ -150,6 +155,7 @@ public class SpaceShipPawn : Pawn
         {
             Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
             shotCounter = timeBetweenShots;
+            GameManager.instance.backgroundMusic.PlayOneShot(GameManager.instance.fireSound);
         }
     }
 }

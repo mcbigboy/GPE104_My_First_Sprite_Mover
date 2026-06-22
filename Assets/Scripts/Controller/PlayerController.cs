@@ -111,15 +111,22 @@ public class PlayerController : Controller
             Debug.Log("Quitting game...");
             Application.Quit();
         }
-
+       
         if (Input.GetMouseButtonDown(0))
         {
-            pawn.Fire();
+            if(GameManager.instance.MainMenuStateObject.activeSelf)
+            {
+               pawn.Fire(); 
+            }
+            
         }
 
         if(Input.GetMouseButton(0))
         {
-
+            if (GameManager.instance.MainMenuStateObject.activeSelf)
+            {
+                pawn.FireMore();
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ public class DeathMeteor : Death
 
     public override void Die()
     {
+        GameManager.instance.backgroundMusic.PlayOneShot(GameManager.instance.bang);
         GameManager.instance.meteros.Remove(gameObject);
         Destroy(gameObject);
         GameManager.instance.score += points;
