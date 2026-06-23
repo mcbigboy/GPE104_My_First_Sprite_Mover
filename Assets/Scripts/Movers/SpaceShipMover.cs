@@ -29,7 +29,8 @@ public class SpaceShipMover : MonoBehaviour
         {
             tf.position += tf.TransformDirection(direction ) * speed * Time.deltaTime;
         }
-        
+
+        GamePlay.instance.WrapMeteor(GameManager.instance.ship);
     }
 
     public void Rotate(float angle)

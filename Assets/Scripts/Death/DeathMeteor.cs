@@ -2,18 +2,56 @@ using UnityEngine;
 
 public class DeathMeteor : Death
 {
+    // 3 large, 2 medium, 1 small
+    public int largePoints;
+    public int mediumPoints;
+    public int smallPoints;
 
-    public int points;
+    private Vector3 meteroPosition;
+    Meteor rock;
 
     public override void Die()
     {
         GameManager.instance.backgroundMusic.PlayOneShot(GameManager.instance.bang);
-        GameManager.instance.meteros.Remove(gameObject);
+        int index = GameManager.instance.meteros.IndexOf(gameObject);
+        if (index >= 0)
+        {
+            rock = GameManager.instance.meteros[index].GetComponent<Meteor>();
+            meteroPosition = gameObject.transform.position;
+            GameManager.instance.meteros.RemoveAt(index);
+            GameManager.instance.meteorPositions.RemoveAt(index);
+        }
+
         Destroy(gameObject);
-        GameManager.instance.score += points;
+        
         Debug.Log("Metero: " + GameManager.instance.meteros.Count);
+
+        if (rock.size == 3)
+        {
+            rock.size = 2;
+            GameManager.instance.score += largePoints;
+            GamePlay.instance.mediumMeteor(meteroPosition);
+            GameManager.instance.largeMeteorDestroyed++;
+        }
+
+        if (rock.size == 2)
+        {
+            rock.size = 1;
+            GameManager.instance.score += mediumPoints;
+            GamePlay.instance.smallMeteor(meteroPosition);
+            GameManager.instance.mediumMeteorDestroyed++;
+        }
+
+        if(rock.size == 1) 
+        {
+            GameManager.instance.score += smallPoints;
+            GameManager.instance.smallMeteorDestroyed++;
+
+        }
+        
         if(GameManager.instance.meteros.Count == 0)
         {
+            GameManager.instance.lossORwin = true;
             GameManager.instance.ActivateState(GameManager.instance.GameOverStateObject);
         }
     }

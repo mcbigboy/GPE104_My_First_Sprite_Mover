@@ -1,13 +1,20 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PawnHealth : Health
+
+    
 {
+   
+
+
     public override void die()
     {
         DeathDestroy deathComponent = GetComponent<DeathDestroy>();
         if (deathComponent != null)
         {
             deathComponent.Die();
+            GameManager.instance.ActivateState(GameManager.instance.GameOverStateObject);
         }
     }
 
@@ -52,7 +59,7 @@ public class PawnHealth : Health
         if(health <= 0)
         {
             health = 0;
-            die();
+      
         }
     }
 

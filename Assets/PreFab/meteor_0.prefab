@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2674270526780937904}
   - component: {fileID: -1478753048309700856}
   - component: {fileID: 5382346497674808034}
+  - component: {fileID: -3327039638728685269}
   m_Layer: 0
   m_Name: meteor_0
   m_TagString: Untagged
@@ -175,7 +176,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65da1af41996e1a4287e273b7b83ade0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathMeteor
-  points: 20
+  largePoints: 10
+  mediumPoints: 20
+  smallPoints: 30
 --- !u!114 &2674270526780937904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +194,11 @@ MonoBehaviour:
   health: 50
   maxHealth: 50
   instantDeath: 0
+  healthBarImage: {fileID: 0}
+  maxLives: 3
+  currentLives: 0
+  liveImageWidth: 32
+  liveBarImage: {fileID: 0}
 --- !u!82 &-1478753048309700856
 AudioSource:
   m_ObjectHideFlags: 0
@@ -301,3 +309,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsteroidHum
   player: {fileID: 0}
+--- !u!114 &-3327039638728685269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6064627705739021198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb9c36bafda3f442ab44ca499e72adb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Meteor
+  size: 3
+  meteorSpeed: 0

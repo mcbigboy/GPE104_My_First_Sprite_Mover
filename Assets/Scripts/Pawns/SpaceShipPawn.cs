@@ -15,13 +15,22 @@ public class SpaceShipPawn : Pawn
     public float timeBetweenShots = 0.2f;
     private float shotCounter;
 
+    Health health;
+    public RectTransform rect;
+    private bool isDead = false;
 
-  
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mover = GetComponent<SpaceShipMover>();
-        
+        health = GetComponent<Health>();
+
+        rect = health.liveBarImage.GetComponent<RectTransform>();
+
+        rect.sizeDelta = new Vector2(health.liveImageWidth * health.maxLives, rect.sizeDelta.y);
+
     }
 
     // Update is called once per frame
@@ -122,8 +131,8 @@ public class SpaceShipPawn : Pawn
 
         if (otherObject.gameObject.name != "bullet_0") 
         { 
-            Debug.Log("not working");
-            Health health = GetComponent<Health>();
+            
+            
 
             if (health != null) {
 
@@ -131,11 +140,31 @@ public class SpaceShipPawn : Pawn
                 {
                     health.die();
                     return;
-
-
                 }
 
-                health.TakeDamage(10); // Example damage value
+                Meteor meteor = otherObject.gameObject.GetComponent<Meteor>();
+
+                if (meteor != null && !isDead)
+                {
+                    health.TakeDamage(meteor.GetDamage());
+                    health.healthBarImage.fillAmount = (float)health.health / health.maxHealth;
+                }
+                Debug.Log("Current Lives before die: " + health.currentLives);
+                if (health.health <= 0 && !isDead)
+                {
+                    isDead = true;
+                    health.currentLives--;
+                    GameManager.instance.ship.SetActive(false);
+                    
+                    rect.sizeDelta = new Vector2(health.liveImageWidth * health.currentLives, rect.sizeDelta.y);
+
+                    if (health.currentLives < 0)
+                    {
+                        health.die();
+                    }
+
+                    RespawnShip();
+                }
             }
         }
     }
@@ -157,5 +186,12 @@ public class SpaceShipPawn : Pawn
             shotCounter = timeBetweenShots;
             GameManager.instance.backgroundMusic.PlayOneShot(GameManager.instance.fireSound);
         }
+    }
+
+    public override void RespawnShip()
+    {
+        health.resetHealth();
+        GameManager.instance.ship.SetActive(true);
+        isDead = false;
     }
 }

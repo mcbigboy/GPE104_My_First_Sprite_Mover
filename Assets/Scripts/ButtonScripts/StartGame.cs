@@ -6,7 +6,7 @@ public class StartGame : MonoBehaviour
     {
        if (GameManager.instance != null)
         {
-            GameManager.instance.ActivateState(GameManager.instance.MainMenuStateObject);
+            GameManager.instance.ActivateState(GameManager.instance.GamePlayStateObject);
         }
         
         

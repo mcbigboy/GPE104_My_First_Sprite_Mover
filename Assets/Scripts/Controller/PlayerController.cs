@@ -114,7 +114,8 @@ public class PlayerController : Controller
        
         if (Input.GetMouseButtonDown(0))
         {
-            if(GameManager.instance.MainMenuStateObject.activeSelf)
+           
+            if (GameManager.instance.GamePlayStateObject.activeSelf)
             {
                pawn.Fire(); 
             }
@@ -123,7 +124,7 @@ public class PlayerController : Controller
 
         if(Input.GetMouseButton(0))
         {
-            if (GameManager.instance.MainMenuStateObject.activeSelf)
+            if (GameManager.instance.GamePlayStateObject.activeSelf)
             {
                 pawn.FireMore();
             }

@@ -11,8 +11,26 @@ public class GameManager : MonoBehaviour
     public float score = 0f;
 
     public List<GameObject> meteros = new List<GameObject>();
+    public List<Vector2> meteorPositions = new List<Vector2>();
+    public int maxMeteors = 8;
+    public int minMeteors = 5;
+    public int maxOtherMeteors = 3;
+    public float largeMeteorDamage = 30f;
+    public float mediumMeteorDamage = 20f;
+    public float smallMeteorDamage = 10f;
+
+    public bool lossORwin = false;
+    public int largeMeteorDestroyed = 0;
+    public int mediumMeteorDestroyed = 0;
+    public int smallMeteorDestroyed = 0;
+
+    public float minMeteorSpeed = 3;
+    public float maxMeteorSpeed = 6f;
+    public float meteorXlimit = 10f;
+    public float meteorYlimit = 5f;
 
     public static GameManager instance;
+    public GamePlay gamePlay;
 
     public float minX = -5f;
     public float maxX = 5f;
@@ -44,22 +62,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        gamePlay = GamePlay.instance;
     }   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        for(int i = 0; i < 5; i++)
-        {
-            do {
-                float xSelected = Random.Range(minX, maxX);
-                float ySelected = Random.Range(minY, maxY);
-                point = new Vector3(xSelected, ySelected, 0f);
-
-            } while (Vector3.Distance(point, ship.transform.position) < 2.0f);
-
-
-            meteros.Add(Instantiate(meteor, point, spawnPoint.rotation));
-        }
+        
 
         //ActivateTitleScreenState();
         ActivateState(TitleScreenStateObject);
@@ -69,7 +78,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(GamePlayStateObject.activeSelf)
+        {
+            gamePlay.UpdateMeteors();
+        }
     }
 
     private void DeactivateAllStates()
@@ -82,46 +94,7 @@ public class GameManager : MonoBehaviour
         GameOverStateObject.SetActive(false);
     }
 
-    /*
-    public void ActivateTitleScreenState()
-    {
-        DeactivateAllStates();
-        TitleScreenStateObject.SetActive(true);
-    }
-
-    public void ActivateMainMenuState()
-    {
-        DeactivateAllStates();
-        MainMenuStateObject.SetActive(true);
-    }
-
-    public void ActivateOptionsScreenState()
-    {
-        DeactivateAllStates();
-        OptionsScreenStateObject.SetActive(true);
-    }
-
-    public void ActivateCreditsScreenState()
-    {
-        DeactivateAllStates();
-        CreditsScreenObject.SetActive(true);
-    }
-
-    public void ActivateGamePlayState()
-    {
-        DeactivateAllStates();
-        GamePlayStateObject.SetActive(true);
-
-        // Doing anything else that needs to be done when the game play state is activated, such as resetting the score, lives, etc.
-        // Spawning the player ship, resetting the position of the meteors, etc.
-    }
-
-    public void ActivateGameOverState()
-    {
-        DeactivateAllStates();
-        GameOverStateObject.SetActive(true);
-    }
-    */
+  
     public void ActivateState(GameObject gameObject)
     {
         DeactivateAllStates();

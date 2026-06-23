@@ -40,4 +40,6 @@ public abstract class Pawn : MonoBehaviour
 
     public abstract void FireMore();
 
+    public abstract void RespawnShip();
+
 }
